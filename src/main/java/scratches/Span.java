@@ -1,5 +1,8 @@
 package scratches;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Span {
 
 //  Consider the leftmost and righmost appearances of some value in an array.
@@ -17,27 +20,46 @@ public class Span {
     return maxSpan;
   }
 
+  public int quickerSpan(int[] nums) {
+    Set<Integer> distinct = new HashSet<>();
+    for(int number : nums)
+      distinct.add(number);
+
+    int largest = 0;
+    for(Integer I : distinct) {
+      int result = findFirst(I, nums) + findLast(I, nums);
+      if(result > largest)
+          largest = result;
+    }
+    return largest;
+  }
+
   private int nSquared(int number, int[] nums) {
     //very slow
-    int firstIndex = -1;
-    int lastIndex = -1;
-
-    for (int first = 0; first < nums.length; first++) {
-      if (number == nums[first]) {
-        firstIndex = first;
-        break;
-      }
-    }
-    for (int last = nums.length - 1; last > 0; last--) {
-      if (number == nums[last]) {
-        lastIndex = last;
-        break;
-      }
-    }
+    int firstIndex = findFirst(number, nums);
+    int lastIndex = findLast(number, nums);
 
     if (firstIndex != -1 && lastIndex != -1)
       return lastIndex + 1 - firstIndex;
 
     return 0;
+  }
+
+  private int findFirst(int number, int[] nums) {
+    for (int first = 0; first < nums.length; first++) {
+      if (number == nums[first]) {
+        return first;
+      }
+    }
+    return -1;
+  }
+
+  private int findLast(int number, int[] nums) {
+    for (int last = nums.length - 1; last > 0; last--) {
+      if (number == nums[last]) {
+        return last;
+      }
+    }
+    return -1;
   }
 }
