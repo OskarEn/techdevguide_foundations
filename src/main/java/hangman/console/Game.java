@@ -43,7 +43,7 @@ public class Game {
       if(!guesses.contains(hiddenWord[i]))
         hiddenWord[i] = '*';
     }
-    return hiddenWord.toString();
+    return String.copyValueOf(hiddenWord); //TIL the toString method on char[] doesn't return what I expected
   }
 
   private char getUserInput() {
