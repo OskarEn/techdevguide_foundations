@@ -6,9 +6,10 @@ package hangman.stanford;
  * This file keeps track of the Hangman display.
  */
 
-import acm.graphics.*;
+//import acm.graphics.*;
 
-public class HangmanCanvas extends GCanvas {
+//public class HangmanCanvas extends GCanvas {
+public class HangmanCanvas {
   /** Resets the display so that only the scaffold appears */
   public void reset() {
     /* You fill this in */

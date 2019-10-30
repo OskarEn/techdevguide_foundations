@@ -6,7 +6,7 @@ package hangman.stanford;
  * This file contains a stub implementation of the HangmanLexicon
  * class that you will reimplement for Part III of the assignment.
  */
-import acm.util.*;
+//import acm.util.*;
 public class HangmanLexicon {
   /** Returns the number of words in the lexicon. */
   public int getWordCount() {
@@ -25,7 +25,7 @@ public class HangmanLexicon {
       case 7: return "QUAGMIRE";
       case 8: return "SLITHER";
       case 9: return "ZIRCON";
-      default: throw new ErrorException("getWord: Illegal index");
+      default: throw new RuntimeException("getWord: Illegal index");
     }
   }
 }
