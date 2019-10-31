@@ -8,10 +8,14 @@ import java.util.Set;
 
 public class Words {
 
-  Set<String> words = new HashSet<>();
+  private Set<String> wordList;
 
-  public Words(Path p) throws IOException {
-    Files.lines(p).forEach(s -> words.add(s));
+  public void loadWords(Path p) {
+    try {
+      wordList = new HashSet<>();
+      Files.lines(p).forEach(s -> wordList.add(s));
+    } catch (IOException io) {
+      throw new RuntimeException("Could not load the file for the words");
+    }
   }
-
 }
