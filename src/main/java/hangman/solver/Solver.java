@@ -1,25 +1,40 @@
 package hangman.solver;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
-//https://codegolf.stackexchange.com/questions/25496/write-a-hangman-solver
+//TODO Modify my hangman game to test the solver
 public class Solver {
 
-  //TODO: handling the input from the user ___ ___a___ ____b___
-  //TODO: improve the guessing -> could test the frequencies of words in the list
+  private static Logger logger = Logger.getLogger("Solver progress");
 
-  //Delegate to other methods
   public static void main(String[] args) {
-    Words words = new Words();
-    words.loadWords(Paths.get("wordlist.txt")); //Make
-    GuessOptimiser guessOptimiser = new GuessOptimiser(words);
-
-    boolean running = true;
-    while(running) {
-      //TODO interaction ...while nextLine != END
-      //TODO condition if all are blank...start a new "guessing session"
+    Long start = System.currentTimeMillis();
+    Scanner scanner = new Scanner(System.in);
+    Iterator<Character> guesses = FrequencyCalculator.optimalGuesses();
+    while(scanner.hasNextLine()) {
+      String input = scanner.nextLine();
+      if(isEnded(input)) {
+        logger.info("System has ended. Completed in " + (System.currentTimeMillis() - start));
+        break;
+      }
+      if(isNextRound(input)) {
+        guesses = FrequencyCalculator.optimalGuesses();
+      }
+      System.out.println(guesses.next()); //This should pass to a game instance
     }
+  }
+
+  private static boolean isEnded(String input) {
+    return input.equals("END");
+  }
+  //NextRound is declared by passing a string consisting only of underscores
+  private static boolean isNextRound(String input) {
+    for(char c : input.toCharArray()) {
+      if(c!='_')
+        return false;
+    }
+    return true;
   }
 }
